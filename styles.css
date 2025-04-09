@@ -1,0 +1,264 @@
+h1 {
+  text-decoration: underline;
+}
+
+#header {
+  background-color: #e9dd5e;
+  width: 100%;
+  height: 10vh;
+  padding-left: 5vw;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start; /* Aligns items to the left */
+  align-items: center; /* Optional: Aligns items vertically */
+  gap: 15px;
+}
+
+#header i {
+  padding: 0 0 0 20px;
+  font-size: 30px;
+}
+
+#header a {
+  color: black;
+}
+
+#hero-section {
+  width: 100%;
+  height: 35vh;
+  background-color: #e4ae1a;
+
+
+  text-shadow: 2px 2px 5px rgb(37, 67, 54);
+
+  display: flex;
+  flex-direction: column; /* Arrange items in a column */
+  justify-content: center; /* Center items vertically */
+  align-items: center; /* Center items horizontally */
+  text-align: center;
+  overflow: hidden; /* Prevents items from overflowing */
+}
+
+#hero-section h1 {
+  text-decoration: none;
+  max-height: 50%;
+}
+
+#hero-section img {
+  max-height: 50%;
+  border-radius: 50%;
+  border: 3px solid rgba(37, 67, 54, 0.5);
+  /* max-width: 15vw;
+    min-width: 100px; */
+}
+
+#login-options {
+  width: 100%;
+  padding: 15px 0 15px 0;
+  height: 45vh;
+  background-color: #d7b556;
+
+  display: flex;
+  flex-direction: column; /* Arrange items in a column */
+  justify-content: center; /* Center items vertically */
+  align-items: center; /* Center items horizontally */
+  text-align: center;
+  gap: 10px;
+}
+
+#login-options label {
+  font-weight: bold;
+}
+
+.loginitem {
+  max-height: 15%;
+  width: clamp(300px, 25%, 700px);
+}
+
+#login-options button {
+  font-weight: bold;
+}
+
+.login-button {
+  background-color: rgb(64, 124, 254);
+}
+
+#balance {
+  width: 100%;
+  height: 100vw;
+  background-color: rgb(246, 248, 133);
+}
+
+#footer-section {
+  background-color: #5c5c5c;
+  color: #f7f7f7;
+  height: 10vh;
+  font-weight: bold;
+  display: flex; /* Enables Flexbox layout */
+  align-items: center; /* Centers items vertically */
+  justify-content: center;
+  margin: 0;
+}
+
+#footer-home {
+  background-color: #5c5c5c;
+  color: #f7f7f7;
+  height: 10vh;
+  font-weight: bold;
+  display: flex; /* Enables Flexbox layout */
+  align-items: center; /* Centers items vertically */
+  justify-content: center;
+  margin: 0;
+}
+
+/*Home Page CSS */
+
+@media (min-width: 768px) {
+  /*DESKTOP*/
+  .home-body {
+    margin: 0;
+    padding: 0;
+    display: flex; /* Make the body a flex container */
+    flex-direction: row; /* Arrange children (navbar and main content) in a row */
+  }
+  .home-header {
+    min-width: 90vw;
+    height: 10vh;
+    display: flex; /* Make the body a flex container */
+    flex-direction: row; /* Arrange children (navbar and main content) in a row */
+    justify-content: center;
+    align-items: center;
+    gap: 70vw;
+    background-color: rgb(246, 248, 133);
+  }
+  .header-icons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: right;
+    gap: 20px;
+    padding-right: 20px;
+  }
+  #balancebody {
+    height: 50vh;
+  }
+  .contacts {
+    height: 50vh;
+  }
+  .navbar {
+    background-color: #5c5c5c;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 10vw;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    height: auto;
+    padding: 10px;
+  }
+  .nav-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    width: 70%;
+    margin: 40px;
+    gap: 40px;
+  }
+  #footer-section {
+    height: 10vh;
+  }
+
+  .contacts {
+    padding-left: 3vh;
+  }
+  .balancebody {
+    padding-left: 3vh;
+  }
+  .nav-buttons i:hover {
+    color: white;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Move navbar to the bottom */
+  .navbar {
+    background-color: #5c5c5c;
+    position: fixed !important; /* Ensure it overrides previous styles */
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 12vh; /* Adjust height as needed */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1000; /* Ensure it's above other content */
+  }
+
+  /* Ensure navbar buttons are aligned in a row */
+  .nav-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+  }
+
+  /* Adjust icon styles */
+  .nav-buttons i {
+    font-size: 1.5rem;
+    color: black;
+    cursor: pointer;
+  }
+
+  .nav-buttons i:hover {
+    color: white;
+  }
+
+  /* Prevent content from overlapping with navbar */
+  .main-content {
+    padding-bottom: 12vh; /* Add space so content doesn’t get covered by navbar */
+  }
+
+  .balancebody {
+    padding-top: 3vh;
+    padding-left: 3vh;
+  }
+  .contacts {
+    padding-left: 3vh;
+    border-color: black;
+    border-width: 3px;
+  }
+
+  .contact-items {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .home-header {
+    width: auto;
+    background-color: rgb(246, 248, 133);
+  }
+
+  .header-icons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: right;
+    gap: 20px;
+    padding-right: 20px;
+    padding-bottom: 2vh;
+  }
+
+  .header-icons i:hover {
+    color: white;
+  }
+
+  #footer-section {
+    display: none;
+  }
+}

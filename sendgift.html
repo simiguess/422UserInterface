@@ -19,16 +19,17 @@
       crossorigin="anonymous"
     />
   </head>
+
   <body>
     <section id="home-body" class="home-body">
       <section id="nav-bar" class="navbar">
         <div class="nav-buttons">
           <div class="button">
-            <i class="fa-solid fa-house"></i>
+            <i class="fa-solid fa-house" onclick="homeBtn()"></i>
             <p>Home</p>
           </div>
           <div class="button">
-            <i class="fa-solid fa-gift" onclick="sendGiftBtn()"></i>
+            <i class="fa-solid fa-gift"></i>
             <p>Send Gift</p>
           </div>
           <div class="button">
@@ -40,73 +41,58 @@
 
       <section id="main-content" class="main-content">
         <section id="home-header" class="home-header">
-          <h1 class = "h-header">Home</h1>
+          <h1 class = "h-header">Send Gift</h1>
           <div class="header-icons">
             <i class="fa-solid fa-circle-user"></i>
             <i class="fa-solid fa-bell"></i>
             <button class="logout-button" onclick="logoutBtn()">Logout</button>          </div>
         </section>
 
-        <section id="balancebody" class="balancebody">
-            <h1 class="h-header">Wallet</h1>
-          <div class="balance-container">
-            <div>
-              $<span id="balance">1000</span></div>
-            </div>
-          </div>
-
-          <div class ="services">
-            <div class="withdraw">
-              <i class="fa-solid fa-arrow-right-arrow-left"></i>
-              <button id="withdraw-button">Withdraw</button>
-              <div id="withdraw-container" style="display: none;">
-                <input type="number" id="withdraw-amount" placeholder="Enter withdraw amount" />
-                <button id="submit-withdraw">Submit</button>
-              </div>
-            </div>
-
-            <div class="deposit">
-              <i class="fa-solid fa-arrow-right-arrow-left"></i>
-              <button id="deposit-button">Deposit</button>
-              <div id="deposit-container" style="display: none;">
-                <input type="number" id="deposit-amount" placeholder="Enter deposit amount" />
-                <button id="submit-deposit">Submit</button>
-              </div>
-        </section>
-
-        <section id="contacts" class="contacts">
+        <section id="gift-contacts" class="contacts">
           <h1 class ="h-header">Contact List
           </h1>
-          <div class="contact-items">
+          <div class="gift-contact-items">
             <div class="contact-search">
               <i class="fa-solid fa-magnifying-glass"></i>
               <input class = "searchbar"type="text" placeholder="Search contacts" />
             </div>
 
-            <div class="add-contact">
-              <input type="text" id="contact-name" placeholder="Enter contact name" />
-              <button id="add-contact-button">Add Contact</button>
-            </div>
-
-            <section id="contact-list" class="contact-list">
-
-              <ul id="contacts">
+            <section id="gift-contact-list" class="contact-list">
+              <ul id="gift-contacts">
                 <!-- Dynamically added contacts will appear here -->
 
-              <!-- <div class="indiv-contact">
+              <div class="indiv-contact">
                 <i class="fa-solid fa-circle-user"></i>
                 <div class="contact-body">
-                  <p style="font-weight: bold;">Name</p>
+                  <p style="font-weight: bold;">Bill Pill</p>
                   <p style ="font-size: 1rem; color: gray">Hello, I am a contact, beer me.</p>
                 </div>
-              </div> -->
+                <!--Button to send gift-->
+                <button class="send-gift-button" onclick="sendGift()">
+                  <i class="fa-solid fa-gift"></i>
+                  <p>Send Gift</p>
+              </div>
               
             </ul>
             </section>
           </div>
         </section>
 
-        <!-- Footer section -->
+        <div id="gift-modal" class="modal">
+          <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <h2>Send Gift</h2>
+            <p>Enter the gift type and amount to send:</p>
+            <form id="gift-form">
+              <label for="gift-type">Gift Type:</label>
+              <input type="text" id="gift-type" placeholder="e.g., Beer, Wine" required />
+              <label for="gift-amount">Amount:</label>
+              <input type="number" id="gift-amount" placeholder="Enter amount" required />
+              <button type="button" onclick="confirmGift()">Send Gift</button>
+            </form>
+          </div>
+        </div>
+
         <section id="footer-section">
           <footer>© BeerMe 2025</footer>
         </section>

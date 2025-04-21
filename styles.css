@@ -1,6 +1,4 @@
-h1 {
-  text-decoration: underline;
-}
+
 
 #header {
   background-color: #e9dd5e;
@@ -122,6 +120,28 @@ h1 {
     display: flex; /* Make the body a flex container */
     flex-direction: row; /* Arrange children (navbar and main content) in a row */
   }
+  .balancebody {
+    margin: 1rem;
+    border-radius: 6px;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+    flex: 1; /* Optional: Make all items take equal space */
+    text-align: left;
+    padding: 3rem;
+    border-radius: 6px;
+  }
+  .services {
+    display: flex;
+    justify-content: space-between; /* Space between items */
+    align-items: left; /* Align items vertically */
+    gap: 10rem; /* Optional: Add spacing between items */
+    padding: 10rem;
+  }
+  .withdraw, .deposit {
+    flex: 1; /* Optional: Make all items take equal space */
+    text-align: center; /* Center text inside each item */
+    border-radius: 6px;
+    font-size: 1.5rem;
+  }
   .home-header {
     min-width: 90vw;
     height: 10vh;
@@ -144,7 +164,63 @@ h1 {
     height: 50vh;
   }
   .contacts {
-    height: 50vh;
+    padding: 2rem;
+    padding-left: 3vh;
+    border-color: black;
+    border-width: 3px;
+  }
+
+  .searchbar {
+    justify-content: center;
+    align-items: center;
+    padding: 0.4rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    background-color: white;
+    overflow-y: auto;
+    margin: 1rem;
+  }
+
+  .contact-items {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .contact-items i:hover {
+    transform: scale(1.15);
+  }
+
+  .contact-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0.5rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    background-color: white;
+    width: 100%;
+    overflow-y: auto;
+    max-height: 60vh; /* Set a maximum height */
+  }
+
+  .contact-items i {
+    font-size: 2rem;
+    color: black;
+    cursor: pointer;
+  }
+  .indiv-contact{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem; 
+    padding-left: 1rem;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+  }
+  .contact-body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   .navbar {
     background-color: #5c5c5c;
@@ -164,39 +240,55 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: left;
-    width: 70%;
+    width: 0%;
     margin: 40px;
     gap: 40px;
   }
-  #footer-section {
-    height: 10vh;
+
+  .button{
+    display: flex;
+    flex-direction: column;
+    font-size: 1.1rem;
+    color: black;
+    background-color: transparent;
+    justify-content: center;
+    align-items: center;
   }
 
-  .contacts {
-    padding-left: 3vh;
+  #footer-section {
+    height: 10vh;
   }
   .balancebody {
     padding-left: 3vh;
   }
   .nav-buttons i:hover {
+    transform: scale(1.2);
     color: white;
   }
+}
+
+.logout-button{
+  background-color: transparent;
+  color: black;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
 }
 
 @media (max-width: 768px) {
   /* Move navbar to the bottom */
   .navbar {
     background-color: #5c5c5c;
-    position: fixed !important; /* Ensure it overrides previous styles */
+    position: fixed !important;
     bottom: 0;
     left: 0;
     width: 100vw;
-    height: 12vh; /* Adjust height as needed */
+    height: 10vh;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    z-index: 1000; /* Ensure it's above other content */
+    z-index: 1000;
   }
 
   /* Ensure navbar buttons are aligned in a row */
@@ -219,23 +311,100 @@ h1 {
     color: white;
   }
 
+  .button{
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+    color: black;
+    background-color: transparent;
+    justify-content: center;
+    align-items: center;
+  }
+
   /* Prevent content from overlapping with navbar */
   .main-content {
     padding-bottom: 12vh; /* Add space so content doesn’t get covered by navbar */
   }
 
   .balancebody {
-    padding-top: 3vh;
-    padding-left: 3vh;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 6px;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+    flex: 1; /* Optional: Make all items take equal space */
+    text-align: left;
+    padding: 2rem;
+    border-radius: 6px;
   }
+  .services {
+    display: flex;
+    justify-content: space-between; /* Space between items */
+    align-items: left; /* Align items vertically */
+    gap: 0.5rem; /* Optional: Add spacing between items */
+  }
+  .withdraw, .deposit {
+    flex: 1; /* Optional: Make all items take equal space */
+    text-align: center; /* Center text inside each item */
+    padding-top: 1rem;
+    border-radius: 6px;
+  }
+
   .contacts {
     padding-left: 3vh;
     border-color: black;
     border-width: 3px;
   }
 
+  .searchbar {
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.4rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    background-color: white;
+    overflow-y: auto;
+  }
+
   .contact-items {
     align-items: center;
+    justify-content: center;
+  }
+
+  .contact-items i:hover {
+    transform: scale(1.15);
+  }
+
+  .contact-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0.5rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    background-color: white;
+    width: 100%;
+    overflow-y: auto;
+    max-height: 60vh; /* Set a maximum height */
+  }
+
+  .contact-items i {
+    font-size: 2rem;
+    color: black;
+    cursor: pointer;
+  }
+  .indiv-contact{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem; 
+    padding-left: 1rem;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+  }
+  .contact-body{
+    display: flex;
+    flex-direction: column;
     justify-content: center;
   }
 

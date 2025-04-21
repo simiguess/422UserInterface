@@ -23,42 +23,114 @@
     <section id="home-body" class="home-body">
       <section id="nav-bar" class="navbar">
         <div class="nav-buttons">
-          <i class="fa-solid fa-house"></i>
-          <i class="fa-solid fa-gift"></i>
-          <i class="fa-solid fa-envelope-open-text"></i>
+          <div class="button">
+            <i class="fa-solid fa-house"></i>
+            <p>Home</p>
+          </div>
+          <div class="button">
+            <i class="fa-solid fa-gift"></i>
+            <p>Send Gift</p>
+          </div>
+          <div class="button">
+            <i class="fa-solid fa-envelope-open-text"></i>
+            <p>Transactions</p>
+          </div>
         </div>
       </section>
 
       <section id="main-content" class="main-content">
         <section id="home-header" class="home-header">
-          <h1>Home</h1>
+          <h1 class = "h-header">Home</h1>
           <div class="header-icons">
             <i class="fa-solid fa-circle-user"></i>
             <i class="fa-solid fa-bell"></i>
-            <i>Logout</i>
-          </div>
+            <button class="logout-button" onclick="logoutBtn()">Logout</button>          </div>
         </section>
 
         <section id="balancebody" class="balancebody">
-          <h1>Balance: $0.00</h1>
-          <p>Withdraw</p>
-          <p>Deposit</p>
+            <h1 class="h-header">Wallet</h1>
+          <div class="balance-container">
+            <div>
+              <h1>$0.00</div>
+            </div>
+          </div>
+          <div class ="services">
+            <div class="withdraw">
+              <i class="fa-solid fa-arrow-right-arrow-left"></i>
+              Withdraw
+            </div>
+            <div class="deposit">
+              <i class="fa-solid fa-plus-circle"></i>
+              Deposit</div>
+          </div>
         </section>
 
         <section id="contacts" class="contacts">
-          <h1>Contact List</h1>
+          <h1 class ="h-header">Contact List
+          </h1>
           <div class="contact-items">
             <div class="contact-search">
               <i class="fa-solid fa-magnifying-glass"></i>
-              <input type="text" placeholder="Search contacts" />
+              <input class = "searchbar"type="text" placeholder="Search contacts" />
             </div>
 
-            <div class="contact-list">
-              <p>Contact1</p>
-              <p>Contact2</p>
-              <p>Contact3</p>
-              <p>Contact4</p>
-              <p>Contact5</p>
+            <div class="contact-list"> <!-- Contact List to be scrollable-->
+
+              <div class="indiv-contact">
+                <i class="fa-solid fa-circle-user"></i>
+                <div class="contact-body">
+                  <p style="font-weight: bold;">Name</p>
+                  <p style ="font-size: 1rem; color: gray">Hello, I am a contact, beer me.</p>
+                </div>
+              </div>
+
+              <div class="indiv-contact">
+                <i class="fa-solid fa-circle-user"></i>
+                <div class="contact-body">
+                  <p style="font-weight: bold;">Name</p>
+                  <p style ="font-size: 1rem; color: gray">Hello, I am a contact, beer me.</p>
+                </div>
+              </div>
+
+              <div class="indiv-contact">
+                <i class="fa-solid fa-circle-user"></i>
+                <div class="contact-body">
+                  <p style="font-weight: bold;">Name</p>
+                  <p style ="font-size: 1rem; color: gray">Hello, I am a contact, beer me.</p>
+                </div>
+              </div>
+
+              <div class="indiv-contact">
+                <i class="fa-solid fa-circle-user"></i>
+                <div class="contact-body">
+                  <p style="font-weight: bold;">Name</p>
+                  <p style ="font-size: 1rem; color: gray">Hello, I am a contact, beer me.</p>
+                </div>
+              </div>
+
+              <div class="indiv-contact">
+                <i class="fa-solid fa-circle-user"></i>
+                <div class="contact-body">
+                  <p style="font-weight: bold;">Name</p>
+                  <p style ="font-size: 1rem; color: gray">Hello, I am a contact, beer me.</p>
+                </div>
+              </div>
+
+              <div class="indiv-contact">
+                <i class="fa-solid fa-circle-user"></i>
+                <div class="contact-body">
+                  <p style="font-weight: bold;">Name</p>
+                  <p style ="font-size: 1rem; color: gray">Hello, I am a contact, beer me.</p>
+                </div>
+              </div>
+
+              <div class="indiv-contact">
+                <i class="fa-solid fa-circle-user"></i>
+                <div class="contact-body">
+                  <p style="font-weight: bold;">Name</p>
+                  <p style ="font-size: 1rem; color: gray">Hello, I am a contact, beer me.</p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -74,5 +146,6 @@
         </section>
       </section>
     </section>
+    <script src="script.js"></script>
   </body>
 </html>

@@ -47,21 +47,22 @@
   
     
         <label for="lname" class = 'loginitem'>Email:</label>
-        <input type="email" name="email" id="emailinput" class = 'loginitem'></input>
+        <input type="email" name="email" id="emailinputreg" class = 'loginitem'></input>
    
         <label for="lname" class = 'loginitem' class = 'loginitem'>Password:</label>
-        <input type="password" name="message" id="messageinput" class = 'loginitem'></input>
+        <input type="password" name="message" id="pass1" class = 'loginitem'></input>
+        <label for="lname" class = 'loginitem' class = 'loginitem'>Confirm Password:</label>
+        <input type="password" name="message" id="pass2" class = 'loginitem'></input>
+        <p href = "" class = 'loginitem' id="passhelp">
+          Enter Matching Passwords
+        </p>
   
-        <a href = "" class = 'loginitem'>
-          Forgot Password?
-        </a>
-        
 
         <div class="flex flex-row button-test loginitem">
           <!-- <button class="" onclick="loginBtn()">Log In</button>
           <button class = '' onclick="createAct()">Create Account</button> -->
-          <p class="link-button login-button cursor-pointer width-100 p-3" onclick="loginBtn()">Login</a>
-          <p class="link-button create-button cursor-pointer width-100 p-3" onclick="createAct()">Create Account</a>
+          
+          <p class="link-button create-button cursor-pointer width-100 p-3" onclick="register()">Register</a>
 
         </div>
         

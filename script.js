@@ -1,6 +1,31 @@
 function loginBtn() {
     window.location.href = 'homepage.html';
 }
+function createAct() {
+    window.location.href = 'create_account.html';
+}
+function register() {
+  const pass1 = document.getElementById("pass1").value;
+  const pass2 = document.getElementById("pass2").value;
+  const email = document.getElementById("emailinputreg").value;
+  let help = document.getElementById("passhelp");
+  if(pass1 == pass2 && (pass1 != "" || pass2 != "")){
+    window.location.href = 'homepage.html';
+  }
+  else if(email == ""){
+    help.style.color = "red";
+    help.textContent = "Email Cannot Be Empty";
+  }
+  else if(pass1 == '' && pass2 == ''){
+    help.style.color = "red";
+    help.textContent = "Password Cannot Be Empty";
+  }
+  else{
+    help.style.color = "red";
+    help.textContent = "Passwords Do Not Match";
+  }
+  
+}
 function logoutBtn() {
     window.location.href = 'index.html';
 }

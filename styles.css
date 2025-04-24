@@ -1,7 +1,44 @@
+.flex{
+  display:flex;
+}
+
+.flex-row{
+  flex-direction: row;
+}
+
+.flex-column{
+  flex-direction: column;
+}
+
+.gap-10{
+  gap:10px;
+}
+
+.justify-center{
+  justify-content: center;
+}
+
+.align-center{
+  align-items: center;
+}
+
+.text-a-center{
+  text-align: center;
+}
+
+.width-100{
+  width: 100%;
+}
+
+.cursor-pointer{
+  cursor: pointer;
+}
+
+
 
 
 #header {
-  background-color: #e9dd5e;
+  background-color: #f3f1db;
   width: 100%;
   height: 10vh;
   padding-left: 5vw;
@@ -25,7 +62,7 @@
 #hero-section {
   width: 100%;
   height: 35vh;
-  background-color: #e4ae1a;
+  background-color: #fec939f4;
 
 
   text-shadow: 2px 2px 5px rgb(37, 67, 54);
@@ -55,14 +92,7 @@
   width: 100%;
   padding: 15px 0 15px 0;
   height: 45vh;
-  background-color: #d7b556;
-
-  display: flex;
-  flex-direction: column; /* Arrange items in a column */
-  justify-content: center; /* Center items vertically */
-  align-items: center; /* Center items horizontally */
-  text-align: center;
-  gap: 10px;
+  background-color: #fec939f4;
 }
 
 #login-options label {
@@ -70,17 +100,34 @@
 }
 
 .loginitem {
-  max-height: 15%;
+  /* max-height: 15%; */
   width: clamp(300px, 25%, 700px);
 }
 
-#login-options button {
+.link-button{
+  padding: 0.5rem;
+  border: 1px solid #333333;
+  background-color: white;
   font-weight: bold;
 }
 
-.login-button {
-  background-color: rgb(64, 124, 254);
+.login-button:hover {
+  background: rgb(30, 101, 255);
+ 
 }
+.create-button:hover {
+  background-color: rgb(186, 186, 186);
+  
+}
+
+
+.login-button {
+  background: rgb(64, 124, 254);
+}
+.create-button {
+  background-color: rgb(226, 226, 226);
+}
+
 
 #balance {
   width: 100%;

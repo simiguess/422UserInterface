@@ -23,18 +23,18 @@
     <section id="home-body" class="home-body">
       <section id="nav-bar" class="navbar">
         <div class="nav-buttons">
-          <div class="button">
+          <button class="button" onclick="homeBtn()">
             <i class="fa-solid fa-house"></i>
             <p>Home</p>
-          </div>
-          <div class="button">
-            <i class="fa-solid fa-gift" onclick="sendGiftBtn()"></i>
+          </button>
+          <button class="button" onclick="sendGiftBtn()">
+            <i class="fa-solid fa-gift"></i>
             <p>Send Gift</p>
-          </div>
-          <div class="button">
-            <i class="fa-solid fa-envelope-open-text" onclick="transactionsBtn()"></i>
+          </button>
+          <button class="button" onclick="transactionsBtn()">
+            <i class="fa-solid fa-envelope-open-text"></i>
             <p>Transactions</p>
-          </div>
+          </button>
         </div>
       </section>
 
@@ -42,16 +42,21 @@
         <section id="home-header" class="home-header">
           <h1 class = "h-header">Home</h1>
           <div class="header-icons">
-            <i class="fa-solid fa-circle-user"></i>
-            <i class="fa-solid fa-bell"></i>
+            <button class="button" onclick="profileBtn()">
+              <i class="fa-solid fa-circle-user"></i>
+            </button>
+            <button class="button" onclick="notificationsBtn()">
+              <i class="fa-solid fa-bell"></i>
+            </button>
             <button class="logout-button" onclick="logoutBtn()">Logout</button>          </div>
         </section>
 
         <section id="balancebody" class="balancebody">
             <h1 class="h-header">Wallet</h1>
           <div class="balance-container">
-            <div>
-              $<span id="balance">1000</span></div>
+            <div class="balance">
+              <h2 style = "font-size: 3rem">$</h2>
+              <span id="balance">1000</span></div>
             </div>
           </div>
 
@@ -81,12 +86,14 @@
             <div class="contact-search">
               <i class="fa-solid fa-magnifying-glass"></i>
               <input class = "searchbar"type="text" placeholder="Search contacts" />
+              <div class="add-contact">
+                <button class="button" onclick="openAddContactModal()">
+                  <i class="fa-solid fa-circle-plus" style="font-size: 2vh;"></i>
+                  <p style ="font-size: 12px;">Add</p>
+                </button>
+              </div>
             </div>
-
-            <div class="add-contact">
-              <input type="text" id="contact-name" placeholder="Enter contact name" />
-              <button id="add-contact-button">Add Contact</button>
-            </div>
+            
 
             <section id="contact-list" class="contact-list">
 
@@ -103,6 +110,21 @@
               
             </ul>
             </section>
+
+            <div id="add-contact-modal" class="modal">
+              <div class="modal-content">
+                <span class="close-button" onclick="closeAddContactModal()">&times;</span>
+                <h2>Add Contact</h2>
+                <form id="add-contact-form" class ="form">
+                  <label for="contact-name">Name:</label>
+                  <input type="text" id="contact-name" placeholder="Enter contact name" required />
+                  <label for="contact-phone">Phone Number:</label>
+                  <input type="tel" id="contact-phone" placeholder="Enter phone number" required />
+                  <button type="button" onclick="submitAddContact()">Add Contact</button>
+                </form>
+              </div>
+            </div>
+
           </div>
         </section>
 

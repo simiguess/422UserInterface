@@ -24,18 +24,18 @@
     <section id="home-body" class="home-body">
       <section id="nav-bar" class="navbar">
         <div class="nav-buttons">
-          <div class="button">
-            <i class="fa-solid fa-house" onclick="homeBtn()"></i>
+          <button class="button" onclick="homeBtn()">
+            <i class="fa-solid fa-house"></i>
             <p>Home</p>
-          </div>
-          <div class="button">
-            <i class="fa-solid fa-gift"onclick="sendGiftBtn()"></i>
+          </button>
+          <button class="button" onclick="sendGiftBtn()">
+            <i class="fa-solid fa-gift"></i>
             <p>Send Gift</p>
-          </div>
-          <div class="button">
+          </button>
+          <button class="button" onclick="transactionsBtn()">
             <i class="fa-solid fa-envelope-open-text"></i>
             <p>Transactions</p>
-          </div>
+          </button>
         </div>
       </section>
 
@@ -43,8 +43,12 @@
         <section id="home-header" class="home-header">
           <h1 class = "h-header">History</h1>
           <div class="header-icons">
-            <i class="fa-solid fa-circle-user"></i>
-            <i class="fa-solid fa-bell"></i>
+            <button class="button" onclick="profileBtn()">
+              <i class="fa-solid fa-circle-user"></i>
+            </button>
+            <button class="button" onclick="notificationsBtn()">
+              <i class="fa-solid fa-bell"></i>
+            </button>
             <button class="logout-button" onclick="logoutBtn()">Logout</button>          </div>
         </section>
 

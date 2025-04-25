@@ -22,29 +22,33 @@
 
   <body>
     <section id="home-body" class="home-body">
-      <section id="nav-bar" class="navbar">
-        <div class="nav-buttons">
-          <div class="button">
-            <i class="fa-solid fa-house" onclick="homeBtn()"></i>
-            <p>Home</p>
-          </div>
-          <div class="button">
-            <i class="fa-solid fa-gift"></i>
-            <p>Send Gift</p>
-          </div>
-          <div class="button">
-            <i class="fa-solid fa-envelope-open-text" onclick="transactionsBtn()"></i>
-            <p>Transactions</p>
-          </div>
-        </div>
-      </section>
+    <section id="nav-bar" class="navbar">
+      <div class="nav-buttons">
+        <button class="button" onclick="homeBtn()">
+          <i class="fa-solid fa-house"></i>
+          <p>Home</p>
+        </button>
+        <button class="button" onclick="sendGiftBtn()">
+          <i class="fa-solid fa-gift"></i>
+          <p>Send Gift</p>
+        </button>
+        <button class="button" onclick="transactionsBtn()">
+          <i class="fa-solid fa-envelope-open-text"></i>
+          <p>Transactions</p>
+        </button>
+      </div>
+    </section>
 
       <section id="main-content" class="main-content">
         <section id="home-header" class="home-header">
           <h1 class = "h-header">Send Gift</h1>
           <div class="header-icons">
-            <i class="fa-solid fa-circle-user"></i>
-            <i class="fa-solid fa-bell"></i>
+            <button class="button" onclick="profileBtn()">
+              <i class="fa-solid fa-circle-user"></i>
+            </button>
+            <button class="button" onclick="notificationsBtn()">
+              <i class="fa-solid fa-bell"></i>
+            </button>
             <button class="logout-button" onclick="logoutBtn()">Logout</button>          </div>
         </section>
 
@@ -58,8 +62,10 @@
             </div>
 
             <section id="gift-contact-list" class="contact-list">
-              <ul id="gift-contacts">
-                <!-- Dynamically added contacts will appear here -->
+              <div id="gcontacts" class="contact-list">
+                <!-- Contacts will be dynamically populated here -->
+              </div>
+
 
               <div class="indiv-contact">
                 <i class="fa-solid fa-circle-user"></i>
@@ -72,8 +78,6 @@
                   <i class="fa-solid fa-gift"></i>
                   <p>Send Gift</p>
               </div>
-              
-            </ul>
             </section>
           </div>
         </section>
@@ -96,6 +100,7 @@
         <section id="footer-section">
           <footer>© BeerMe 2025</footer>
         </section>
+        
       </section>
     </section>
     <script src="script.js"></script>

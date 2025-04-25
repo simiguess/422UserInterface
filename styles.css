@@ -133,7 +133,6 @@
   width: 100%;
   height: 10vh;
   font-size: 6vh;
-  background-color: red;
 
   display: flex;
   flex-direction: row; /* Arrange items in a row */

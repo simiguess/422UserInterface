@@ -1,25 +1,11 @@
 // ===== Navigation Functions =====
-function homeBtn() {
-  window.location.href = "homepage.html";
-}
+function homeBtn() { window.location.href = "homepage.html"; }
+function sendGiftBtn() { window.location.href = "sendgift.html"; }
+function reqGiftBtn() { window.location.href = "sendgift.html"; }
+function transactionsBtn() { window.location.href = "transactionhistory.html"; }
+function logoutBtn() { window.location.href = "index.html"; }
 
-function sendGiftBtn() {
-  window.location.href = "sendgift.html";
-}
-
-function reqGiftBtn() {
-  window.location.href = "sendgift.html";
-}
-
-function transactionsBtn() {
-  window.location.href = "transactionhistory.html";
-}
-
-function logoutBtn() {
-  window.location.href = "index.html";
-}
-
-// ====== Local Storage Utilities =====
+// ===== Local Storage Utilities =====
 function getContacts() {
   return JSON.parse(localStorage.getItem('contacts')) || [];
 }
@@ -36,44 +22,19 @@ function saveTransactions(transactions) {
   localStorage.setItem('transactions', JSON.stringify(transactions));
 }
 
-// ====== Contact Management (Homepage) =====
-const addContactButton = document.getElementById('add-contact-button');
-if (addContactButton) {
-  addContactButton.addEventListener('click', () => {
-    const nameInput = document.getElementById('contact-name');
-    const name = nameInput.value.trim();
-    if (name !== "") {
-      const contacts = getContacts();
-      contacts.push(name);
-      saveContacts(contacts);
-      nameInput.value = '';
-      displayContact(name);
-    }
-  });
+// ===== Wallet Utilities =====
+function loadWalletBalance() {
+  let savedBalance = localStorage.getItem('walletBalance');
+  if (!savedBalance) {
+    savedBalance = 1000; // starting demo balance
+    localStorage.setItem('walletBalance', savedBalance);
+  }
+  const balanceElement = document.getElementById('balance');
+  if (balanceElement) {
+    balanceElement.innerText = parseFloat(savedBalance).toFixed(2);
+  }
 }
 
-  // Load contacts when page loads
-  const giftContactBody = document.getElementById('gift-contact-body');
-
-if (giftContactBody) {
-  window.addEventListener('DOMContentLoaded', () => {
-    const contacts = getContacts(); // pull from localStorage
-
-    contacts.forEach(name => {
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>${name}</td>
-        <td>
-          <button class="btn btn-dark send-btn" onclick="openSendModal('${name}')">Send Money</button>
-          <button class="btn btn-secondary request-btn" onclick="openRequestModal('${name}')">Request Money</button>
-        </td>
-      `;
-      giftContactBody.appendChild(row);
-    });
-  });
-}
-
-  
 function animateBalanceChange(targetValue) {
   let balanceElement = document.getElementById('balance');
   if (!balanceElement) return;
@@ -93,24 +54,53 @@ function animateBalanceChange(targetValue) {
   }, 20);
 }
 
+function saveTransaction(type, amount, recipient = "-") {
+  const now = new Date();
+  const dateStr = now.toLocaleString();
+  const code = Math.random().toString(36).substring(2, 8).toUpperCase();
+
+  const transaction = {
+    date: dateStr,
+    type: type,
+    amount: amount,
+    recipient: recipient,
+    confirmationCode: code
+  };
+
+  const transactions = getTransactions();
+  transactions.push(transaction);
+  saveTransactions(transactions);
+}
+
+// ===== Contact Management =====
+const addContactButton = document.getElementById('add-contact-button');
+if (addContactButton) {
+  addContactButton.addEventListener('click', () => {
+    const nameInput = document.getElementById('contact-name');
+    const name = nameInput.value.trim();
+    if (name !== "") {
+      const contacts = getContacts();
+      contacts.push(name);
+      saveContacts(contacts);
+      nameInput.value = '';
+      displayContact(name);
+    }
+  });
+}
 
 function displayContact(name) {
   const contactList = document.getElementById('contacts');
   if (contactList) {
     const li = document.createElement('li');
     li.className = "indiv-contact";
-    li.innerHTML = `
-      <div class="contact-body">${name}</div>
-    `;
+    li.innerHTML = `<div class="contact-body">${name}</div>`;
     contactList.appendChild(li);
   }
 }
 
-
-// ====== Gift Modal Logic =====
+// ===== Gift Modal Logic =====
 let selectedRecipient = "";
 let actionType = ""; // "Send" or "Request"
-
 
 function openSendModal(name) {
   selectedRecipient = name;
@@ -128,97 +118,66 @@ function openRequestModal(name) {
   document.getElementById('gift-modal').style.display = 'block';
 }
 
-
-
 function closeModal() {
   document.getElementById('gift-modal').style.display = 'none';
 }
 
 function confirmGift() {
   const giftType = document.getElementById('gift-type').value.trim();
-  const giftAmount = document.getElementById('gift-amount').value.trim();
+  const giftAmount = parseFloat(document.getElementById('gift-amount').value.trim());
 
-
-  
-  if (giftType === "" || giftAmount === "") {
-    alert("Please fill out both fields!");
+  if (giftType === "" || isNaN(giftAmount) || giftAmount <= 0) {
+    alert("Please fill out both fields with valid values!");
     return;
   }
 
-  const transactions = getTransactions();
-  const date = new Date().toISOString().split('T')[0];
-  const code = Math.random().toString(36).substring(2,8).toUpperCase();
-
-  const actionDescription = `${actionType} (${giftType}) with ${selectedRecipient}`;
-
-  transactions.push({
-    date: date,
-    amount: `-$${giftAmount}`,
-    action: actionDescription,
-    code: code
-  });
-
-  saveTransactions(transactions);
-
-  if (isNaN(giftAmount) || giftAmount <= 0) {
-    alert("Please enter a valid gift amount.");
-    return;
-  }
   let currentBalance = parseFloat(localStorage.getItem('walletBalance'));
   if (giftAmount > currentBalance) {
     alert("Not enough funds to send this gift!");
     return;
   }
+
+  // Update wallet
   let newBalance = currentBalance - giftAmount;
   localStorage.setItem('walletBalance', newBalance);
   animateBalanceChange(newBalance);
-  
 
+  // Save transaction
+  saveTransaction("Gift Sent", giftAmount, selectedRecipient);
 
-
+  // Close modal
   closeModal();
   alert(`${actionType} recorded with ${selectedRecipient} 🎉`);
   document.getElementById('gift-type').value = '';
   document.getElementById('gift-amount').value = '';
-
-
-
-
 }
 
-function loadWalletBalance() {
-  let savedBalance = localStorage.getItem('walletBalance');
-  if (!savedBalance) {
-    savedBalance = 1000; // starting demo balance
-    localStorage.setItem('walletBalance', savedBalance);
-  }
-  let balanceElement = document.getElementById('balance');
-  if (balanceElement) {
-    balanceElement.innerText = parseFloat(savedBalance).toFixed(2);
-  }
-}
-
-
-
-// ====== Transaction History Load =====
+// ===== Transaction History Loader =====
 const transactionBody = document.getElementById('transaction-body');
 if (transactionBody) {
   window.addEventListener('DOMContentLoaded', () => {
-    const transactions = getTransactions();
-    transactions.forEach(t => {
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>${t.date}</td>
-        <td>${t.amount}</td>
-        <td>${t.action}</td>
-        <td>${t.code}</td>
-      `;
-      transactionBody.appendChild(row);
-    });
+    loadTransactions();
   });
 }
 
-// ====== Wallet Deposit / Withdraw =====
+function loadTransactions() {
+  const transactionBody = document.getElementById('transaction-body');
+  if (!transactionBody) return;
+
+  const transactions = getTransactions();
+  transactions.forEach(tx => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${tx.date}</td>
+      <td>$${parseFloat(tx.amount).toFixed(2)}</td>
+      <td>${tx.type}${tx.recipient !== "-" ? ` to ${tx.recipient}` : ""}</td>
+      <td>${tx.confirmationCode}</td>
+    `;
+    transactionBody.appendChild(row);
+  });
+}
+
+// ===== Wallet Deposit / Withdraw =====
 const withdrawButton = document.getElementById('withdraw-button');
 const depositButton = document.getElementById('deposit-button');
 
@@ -232,54 +191,25 @@ if (withdrawButton && depositButton) {
   });
 
   document.getElementById('submit-withdraw').addEventListener('click', () => {
-    // const amount = document.getElementById('withdraw-amount').value.trim();
-    // if (amount !== "") {
-    //   const transactions = getTransactions();
-    //   const date = new Date().toISOString().split('T')[0];
-    //   const code = Math.random().toString(36).substring(2,8).toUpperCase();
-
-    //   transactions.push({
-    //     date: date,
-    //     amount: `-$${amount}`,
-    //     action: "Withdraw",
-    //     code: code
-    //   });
-
-    //   saveTransactions(transactions);
-    //   alert("Withdrawal recorded!");
-    //   window.location.reload();
-    // }
-
-
-
     let amount = parseFloat(document.getElementById('withdraw-amount').value);
-  if (isNaN(amount) || amount <= 0) {
-    alert("Please enter a valid withdraw amount.");
-    return;
-  }
-  let currentBalance = parseFloat(localStorage.getItem('walletBalance'));
-  if (amount > currentBalance) {
-    alert("Insufficient funds!");
-    return;
-  }
-  let newBalance = currentBalance - amount;
-  localStorage.setItem('walletBalance', newBalance);
-  animateBalanceChange(newBalance);
+    if (isNaN(amount) || amount <= 0) {
+      alert("Please enter a valid withdraw amount.");
+      return;
+    }
+    let currentBalance = parseFloat(localStorage.getItem('walletBalance'));
+    if (amount > currentBalance) {
+      alert("Insufficient funds!");
+      return;
+    }
+    let newBalance = currentBalance - amount;
+    localStorage.setItem('walletBalance', newBalance);
+    animateBalanceChange(newBalance);
+
+    saveTransaction("Withdraw", amount);
+    alert("Withdrawal successful!");
   });
 
   document.getElementById('submit-deposit').addEventListener('click', () => {
-    // const amount = document.getElementById('deposit-amount').value.trim();
-    // if (amount !== "") {
-    //   const transactions = getTransactions();
-    //   const date = new Date().toISOString().split('T')[0];
-    //   const code = Math.random().toString(36).substring(2,8).toUpperCase();
-
-    //   transactions.push({
-    //     date: date,
-    //     amount: `+$${amount}`,
-    //     action: "Deposit",
-    //     code: code
-
     let amount = parseFloat(document.getElementById('deposit-amount').value);
     if (isNaN(amount) || amount <= 0) {
       alert("Please enter a valid deposit amount.");
@@ -289,16 +219,13 @@ if (withdrawButton && depositButton) {
     let newBalance = currentBalance + amount;
     localStorage.setItem('walletBalance', newBalance);
     animateBalanceChange(newBalance);
-     
 
-      saveTransactions(transactions);
-      alert("Deposit recorded!");
-      window.location.reload();
-    
+    saveTransaction("Deposit", amount);
+    alert("Deposit successful!");
   });
-
 }
 
+// ====== Load Wallet on Page Load =====
 window.onload = () => {
   loadWalletBalance();
 };

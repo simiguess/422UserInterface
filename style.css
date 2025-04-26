@@ -217,6 +217,12 @@ body.homepage {
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   padding-top: 30px;
+  width: 85px;
+}
+@media (max-width: 600px) {
+  .sidebar {
+    width: 70px;
+  }
 }
 
 .nav-item {
@@ -273,6 +279,7 @@ footer {
   align-items: center;
   flex-wrap: wrap; /* allows better mobile wrapping */
   gap: 12px;
+  margin: 10px 00px
 }
 
 

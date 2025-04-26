@@ -33,19 +33,33 @@
         </div>
       </header>
 
-      <p class="text-center mb-4">Select a contact to send a gift 🎁</p>
+      <p class="text-center mb-4">Select a contact to send a gift!</p>
+      <h2></h2>
+
 
       <section class="contacts">
-  <h2>Select a Contact</h2>
-  <table class="transaction-table" id="gift-contact-table">
-    <thead>
-      <tr>
-        <th>Contact Name</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody id="gift-contact-body">
-      <!-- Contacts will go here -->
+
+        <section class="contacts ">
+          <!-- <h2>Select a Contact</h2> -->
+          <div class="contact-search section-card  mb-2">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input id="contact-search" class="form-control" type="text" placeholder="Search contacts by name or phone" />
+          </div>
+          <table class="transaction-table section-card " id="gift-contact-table">
+            <thead>
+              <tr>
+                <th>Contact Name</th>
+                <th>Phone Number</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="gift-contact-body">
+              <!-- Contacts will get loaded here -->
+            </tbody>
+          </table>
+        </section>
+        
+  
     </tbody>
   </table>
 </section>

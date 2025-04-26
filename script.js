@@ -77,23 +77,75 @@ const addContactButton = document.getElementById('add-contact-button');
 if (addContactButton) {
   addContactButton.addEventListener('click', () => {
     const nameInput = document.getElementById('contact-name');
+    const phoneInput = document.getElementById('contact-phone');
     const name = nameInput.value.trim();
-    if (name !== "") {
-      const contacts = getContacts();
-      contacts.push(name);
-      saveContacts(contacts);
-      nameInput.value = '';
-      displayContact(name);
+    const phone = phoneInput.value.trim();
+    
+    if (name === "" || phone === "") {
+      alert("Please fill in both the name and phone number!");
+      return;
     }
+    
+    const contacts = getContacts();  // getContacts() now will return an array of objects
+    contacts.push({ name: name, phone: phone });
+    saveContacts(contacts);
+    
+    nameInput.value = '';
+    phoneInput.value = '';
+    displayContact({ name: name, phone: phone });
   });
 }
+
+
+function loadGiftContacts() {
+  const giftContactBody = document.getElementById('gift-contact-body');
+  const searchInput = document.getElementById('contact-search');
+  if (!giftContactBody) return;
+  
+  // Function to render contacts based on search value
+  function renderContacts() {
+    giftContactBody.innerHTML = ''; // clear previous entries
+    const query = searchInput.value.toLowerCase();
+    const contacts = getContacts(); // get all contacts (array of objects)
+    contacts.forEach(contact => {
+      // if search is empty or matches name/phone, display it
+      if (!query || contact.name.toLowerCase().includes(query) || contact.phone.includes(query)) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${contact.name}</td>
+          <td>${contact.phone}</td>
+          <td>
+            <button class="btn btn-dark send-btn" onclick="openSendModal('${contact.name}')">Send Money</button>
+            <button class="btn btn-secondary request-btn" onclick="openRequestModal('${contact.name}')">Request Money</button>
+          </td>
+        `;
+        giftContactBody.appendChild(row);
+      }
+    });
+  }
+  
+  // Render initially
+  renderContacts();
+  
+  // Add event listener for search input changes:
+  searchInput.addEventListener('input', renderContacts);
+}
+
+// Call loadGiftContacts when DOM is ready for sendgift page
+window.addEventListener('DOMContentLoaded', loadGiftContacts);
+
 
 function displayContact(name) {
   const contactList = document.getElementById('contacts');
   if (contactList) {
     const li = document.createElement('li');
     li.className = "indiv-contact";
-    li.innerHTML = `<div class="contact-body">${name}</div>`;
+    li.innerHTML = `
+      <div class="contact-body">
+        <strong>${contact.name}</strong><br>
+        <span>${contact.phone}</span>
+      </div>
+    `;
     contactList.appendChild(li);
   }
 }
@@ -143,7 +195,7 @@ function confirmGift() {
   animateBalanceChange(newBalance);
 
   // Save transaction
-  saveTransaction("Gift Sent", giftAmount, selectedRecipient);
+  saveTransaction("Gift Sent", -giftAmount, selectedRecipient);
 
   // Close modal
   closeModal();
@@ -165,6 +217,7 @@ function loadTransactions() {
   if (!transactionBody) return;
 
   const transactions = getTransactions();
+  transactions.reverse()
   transactions.forEach(tx => {
     const row = document.createElement('tr');
     row.innerHTML = `
@@ -173,6 +226,7 @@ function loadTransactions() {
       <td>${tx.type}${tx.recipient !== "-" ? ` to ${tx.recipient}` : ""}</td>
       <td>${tx.confirmationCode}</td>
     `;
+   // node.insertBefore(transactions, row)
     transactionBody.appendChild(row);
   });
 }
@@ -224,6 +278,11 @@ if (withdrawButton && depositButton) {
     alert("Deposit successful!");
   });
 }
+
+
+
+
+
 
 // ====== Load Wallet on Page Load =====
 window.onload = () => {

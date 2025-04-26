@@ -263,7 +263,7 @@ if (withdrawButton && depositButton) {
     localStorage.setItem('walletBalance', newBalance);
     animateBalanceChange(newBalance);
 
-    saveTransaction("Withdraw", amount);
+    saveTransaction("Withdraw", -amount);
     alert("Withdrawal successful!");
   });
 

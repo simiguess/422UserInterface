@@ -115,10 +115,10 @@ function loadGiftContacts() {
           <td>${contact.name}</td>
           <td>${contact.phone}</td>
           <td>
-            <button class="action-btn send-btn" onclick="openSendModal('CONTACT NAME HERE')">
+            <button class="action-btn send-btn" onclick="openSendModal('${contact.name}')">
                   <i class="fa-solid fa-paper-plane"></i> Send
                 </button>
-                <button class="action-btn request-btn" onclick="openRequestModal('CONTACT NAME HERE')">
+                <button class="action-btn request-btn" onclick="openRequestModal('${contact.name}')">
                   <i class="fa-solid fa-hand-holding-usd"></i> Request
                 </button>
           </td>
@@ -156,7 +156,7 @@ function displayContact(name) {
 
 // ===== Gift Modal Logic =====
 let selectedRecipient = "";
-let actionType = ""; // "Send" or "Request"
+let actionType = ""; // "Send" or "Request" 
 
 function openSendModal(name) {
   selectedRecipient = name;

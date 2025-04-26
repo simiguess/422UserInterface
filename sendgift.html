@@ -10,7 +10,7 @@
 
 <body class="homepage">
   <div class="bubble-bg">
-    <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>div class="bubble"></div>div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+    <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
   </div>
   <svg class="blob-svg-top-right" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
     <path d="M500,0 C500,100 400,200 250,200 C150,200 100,100 0,0 L500,0 Z" fill="#ffe37a"/>
@@ -91,8 +91,16 @@
       <h2>Send Gift to <span id="gift-recipient-name"></span></h2>
       <input id="gift-type" class="form-control mb-2" placeholder="Gift type (e.g. Beer)" />
       <input id="gift-amount" class="form-control mb-2" type="number" placeholder="Amount ($)" />
-      <button class="btn btn-dark" onclick="confirmGift()">Send</button>
-      <button class="btn btn-secondary mt-2" onclick="closeModal()">Cancel</button>
+      <!-- <button class="btn btn-dark" onclick="confirmGift()">Send</button>
+      <button class="btn btn-secondary mt-2" onclick="closeModal()">Cancel</button> -->
+     <div>
+      <button class="action-btn send-btn" onclick="confirmGift()">Send
+        <i class="fa-solid fa-paper-plane"></i> 
+      </button>
+      <button class="action-btn request-btn" onclick="closeModal()">Cancel
+        <i class="fa-solid fa-ban"></i> 
+      </button>
+    </div>
     </div>
   </div>
 
@@ -102,8 +110,16 @@
       <h2>Send Gift to <span id="gift-recipient-name"></span></h2>
       <input id="gift-type" class="form-control mb-2" placeholder="Gift type (e.g. Beer)" />
       <input id="gift-amount" class="form-control mb-2" type="number" placeholder="Amount ($)" />
-      <button class="btn btn-dark" onclick="confirmGift()">Send</button>
-      <button class="btn btn-secondary mt-2" onclick="closeModal()">Cancel</button>
+      <div>
+      <!-- <button class="btn btn-dark" onclick="confirmGift()">Send</button>
+      <button class="btn btn-secondary mt-2" onclick="closeModal()">Cancel</button> -->
+      <button class="action-btn send-btn" onclick="confirmGift()">Send
+        <i class="fa-solid fa-paper-plane"></i> 
+      </button>
+      <button class="action-btn request-btn" onclick="closeModal()">Cancel
+        <i class="fa-solid fa-ban"></i> 
+      </button>
+    </div>
     </div>
   </div>
 

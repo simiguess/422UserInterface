@@ -1,5 +1,11 @@
 function loginBtn() {
+  const pass = document.getElementById("messageinput").value;
+  const email = document.getElementById("emailinput").value;
+  if(pass != "" && email != ""){
     window.location.href = 'homepage.html';
+  }
+    
+
 }
 function createAct() {
     window.location.href = 'create_account.html';

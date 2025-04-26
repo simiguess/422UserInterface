@@ -65,8 +65,8 @@ body {
 /* BLOB SVG */
 .blob-svg-top-right {
   position: absolute;
-  top: 0px;
-  right: -20px;
+  top: -20px;
+  right: 0px;
   width: 500px;
   height: 450px;
   z-index: 0;

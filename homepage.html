@@ -85,7 +85,7 @@
           <div class="contact-items">
             <div class="contact-search">
               <i class="fa-solid fa-magnifying-glass"></i>
-              <input class = "searchbar"type="text" placeholder="Search contacts" />
+              <input class = "searchbar" type="text" placeholder="Search contacts" onchange="searchContacts()"/>
               <div class="add-contact">
                 <button class="button" onclick="openAddContactModal()">
                   <i class="fa-solid fa-circle-plus" style="font-size: 2vh;"></i>
@@ -100,15 +100,15 @@
               <ul id="contacts">
                 <!-- Dynamically added contacts will appear here -->
 
-              <!-- <div class="indiv-contact">
-                <i class="fa-solid fa-circle-user"></i>
-                <div class="contact-body">
-                  <p style="font-weight: bold;">Name</p>
-                  <p style ="font-size: 1rem; color: gray">Hello, I am a contact, beer me.</p>
-                </div>
-              </div> -->
+                <!-- <div class="indiv-contact">
+                  <i class="fa-solid fa-circle-user"></i>
+                  <div class="contact-body">
+                    <p style="font-weight: bold;">Name</p>
+                    <p style ="font-size: 1rem; color: gray">Hello, I am a contact, beer me.</p>
+                  </div>
+                </div> -->
               
-            </ul>
+              </ul>
             </section>
 
             <div id="add-contact-modal" class="modal">

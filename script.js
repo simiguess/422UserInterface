@@ -15,6 +15,7 @@ function loadData() {//function to load data from local storage
     const webData = JSON.parse(localStorage.getItem("webData"));
     return webData;
 }
+
 function updateData(newData) {//function to update data in local storage
     localStorage.setItem("webData", JSON.stringify(newData));
 }
@@ -101,10 +102,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
   
-  function loadData() {
-    return JSON.parse(localStorage.getItem("webData"));
-  }
-  
   function updateData(newData) {
     localStorage.setItem("webData", JSON.stringify(newData));
   }
@@ -169,7 +166,7 @@ function transactionsBtn() {
 
 let balance = 1000; // Initial balance
 
-document.getElementById("withdraw-button").addEventListener("click", function () {
+  document.getElementById("withdraw-button").addEventListener("click", function () {
     document.getElementById("withdraw-container").style.display = "block";
   });
   
@@ -247,7 +244,7 @@ function openAddContactModal() {
     // Create the outer div for the contact
     const newContact = document.createElement("div");
     newContact.classList.add("indiv-contact");
-      const userIcon = document.createElement("i");
+    const userIcon = document.createElement("i");
     userIcon.classList.add("fa-solid", "fa-circle-user");
   
     const contactBody = document.createElement("div");
@@ -282,15 +279,15 @@ function openAddContactModal() {
     deleteButton.style.cursor = "pointer";
 
     deleteButton.addEventListener("click", function () {
-    contactList.removeChild(newContact);
+      contactList.removeChild(newContact);
 
-    // Remove the contact from local storage
-    const index = webData.contacts.findIndex(contact => contact.name === contactName && contact.phone === contactPhone);
-        if (index !== -1) {
-            webData.contacts.splice(index, 1);
-            updateData(webData);
-        }
-        alert("Contact deleted successfully.");
+      // Remove the contact from local storage
+      const index = webData.contacts.findIndex(contact => contact.name === contactName && contact.phone === contactPhone);
+          if (index !== -1) {
+              webData.contacts.splice(index, 1);
+              updateData(webData);
+          }
+          alert("Contact deleted successfully.");
     });
 
     newContact.appendChild(deleteButton);
@@ -310,9 +307,33 @@ function openAddContactModal() {
   
     closeAddContactModal();
   }
+  
+  // Filter function for search
+  filterByName = item => {
+    return item.name.contains(document.getElementById("searchbar"));
+  }
 
-//function to select contact to send gift
-function sendGift() {
+  // Search button
+  function searchContacts(){
+    // Get the search term
+    const searchbar = document.getElementById("searchbar");
+    if(!searchbar){ // If there is nothing there, don't filter 
+      // Todo: Restore to full list
+      
+    }
+
+    // Get the contact list
+    const contactList = document.getElementById("contact-list");
+
+    // Filter by name
+    const searchList = contactList.filter(filterByName);
+
+    // Todo: Update the list
+
+  }
+
+  //function to select contact to send gift
+  function sendGift() {
     // Display the modal
     const modal = document.getElementById("gift-modal");
     modal.style.display = "block";
@@ -333,7 +354,15 @@ function sendGift() {
       alert("Please enter a valid gift type and amount.");
       return;
     }
-  
+
+    // Check the balance
+    const appData = loadData();
+
+    if (giftAmount > appData.balance) {
+      alert("Insufficient balance.");
+      return;
+    }
+   
     // Confirmation message
     alert(`Gift of ${giftAmount} (${giftType}) has been sent!`);
   
@@ -343,4 +372,10 @@ function sendGift() {
     // Optionally, clear the input fields
     document.getElementById("gift-type").value = "";
     document.getElementById("gift-amount").value = "";
+
+    // Update the balance
+    appData.balance -= giftAmount;
+    appData.transactions.push({ type: "gift", amount: giftAmount, date: new Date().toISOString() });
+    updateData(appData);
+    document.getElementById("balance").textContent = appData.balance.toFixed(2);
   }

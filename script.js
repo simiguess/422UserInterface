@@ -74,6 +74,24 @@ if (giftContactBody) {
 }
 
   
+function animateBalanceChange(targetValue) {
+  let balanceElement = document.getElementById('balance');
+  if (!balanceElement) return;
+
+  let current = parseFloat(balanceElement.innerText);
+  let step = (targetValue - current) / 20;
+  let counter = 0;
+
+  const interval = setInterval(() => {
+    current += step;
+    counter++;
+    balanceElement.innerText = current.toFixed(2);
+    if (counter >= 20) {
+      balanceElement.innerText = parseFloat(targetValue).toFixed(2);
+      clearInterval(interval);
+    }
+  }, 20);
+}
 
 
 function displayContact(name) {
@@ -119,6 +137,8 @@ function closeModal() {
 function confirmGift() {
   const giftType = document.getElementById('gift-type').value.trim();
   const giftAmount = document.getElementById('gift-amount').value.trim();
+
+
   
   if (giftType === "" || giftAmount === "") {
     alert("Please fill out both fields!");
@@ -133,18 +153,51 @@ function confirmGift() {
 
   transactions.push({
     date: date,
-    amount: `$${giftAmount}`,
+    amount: `-$${giftAmount}`,
     action: actionDescription,
     code: code
   });
 
   saveTransactions(transactions);
 
+  if (isNaN(giftAmount) || giftAmount <= 0) {
+    alert("Please enter a valid gift amount.");
+    return;
+  }
+  let currentBalance = parseFloat(localStorage.getItem('walletBalance'));
+  if (giftAmount > currentBalance) {
+    alert("Not enough funds to send this gift!");
+    return;
+  }
+  let newBalance = currentBalance - giftAmount;
+  localStorage.setItem('walletBalance', newBalance);
+  animateBalanceChange(newBalance);
+  
+
+
+
   closeModal();
   alert(`${actionType} recorded with ${selectedRecipient} 🎉`);
   document.getElementById('gift-type').value = '';
   document.getElementById('gift-amount').value = '';
+
+
+
+
 }
+
+function loadWalletBalance() {
+  let savedBalance = localStorage.getItem('walletBalance');
+  if (!savedBalance) {
+    savedBalance = 1000; // starting demo balance
+    localStorage.setItem('walletBalance', savedBalance);
+  }
+  let balanceElement = document.getElementById('balance');
+  if (balanceElement) {
+    balanceElement.innerText = parseFloat(savedBalance).toFixed(2);
+  }
+}
+
 
 
 // ====== Transaction History Load =====
@@ -179,42 +232,73 @@ if (withdrawButton && depositButton) {
   });
 
   document.getElementById('submit-withdraw').addEventListener('click', () => {
-    const amount = document.getElementById('withdraw-amount').value.trim();
-    if (amount !== "") {
-      const transactions = getTransactions();
-      const date = new Date().toISOString().split('T')[0];
-      const code = Math.random().toString(36).substring(2,8).toUpperCase();
+    // const amount = document.getElementById('withdraw-amount').value.trim();
+    // if (amount !== "") {
+    //   const transactions = getTransactions();
+    //   const date = new Date().toISOString().split('T')[0];
+    //   const code = Math.random().toString(36).substring(2,8).toUpperCase();
 
-      transactions.push({
-        date: date,
-        amount: `-$${amount}`,
-        action: "Withdraw",
-        code: code
-      });
+    //   transactions.push({
+    //     date: date,
+    //     amount: `-$${amount}`,
+    //     action: "Withdraw",
+    //     code: code
+    //   });
 
-      saveTransactions(transactions);
-      alert("Withdrawal recorded!");
-      window.location.reload();
-    }
+    //   saveTransactions(transactions);
+    //   alert("Withdrawal recorded!");
+    //   window.location.reload();
+    // }
+
+
+
+    let amount = parseFloat(document.getElementById('withdraw-amount').value);
+  if (isNaN(amount) || amount <= 0) {
+    alert("Please enter a valid withdraw amount.");
+    return;
+  }
+  let currentBalance = parseFloat(localStorage.getItem('walletBalance'));
+  if (amount > currentBalance) {
+    alert("Insufficient funds!");
+    return;
+  }
+  let newBalance = currentBalance - amount;
+  localStorage.setItem('walletBalance', newBalance);
+  animateBalanceChange(newBalance);
   });
 
   document.getElementById('submit-deposit').addEventListener('click', () => {
-    const amount = document.getElementById('deposit-amount').value.trim();
-    if (amount !== "") {
-      const transactions = getTransactions();
-      const date = new Date().toISOString().split('T')[0];
-      const code = Math.random().toString(36).substring(2,8).toUpperCase();
+    // const amount = document.getElementById('deposit-amount').value.trim();
+    // if (amount !== "") {
+    //   const transactions = getTransactions();
+    //   const date = new Date().toISOString().split('T')[0];
+    //   const code = Math.random().toString(36).substring(2,8).toUpperCase();
 
-      transactions.push({
-        date: date,
-        amount: `+$${amount}`,
-        action: "Deposit",
-        code: code
-      });
+    //   transactions.push({
+    //     date: date,
+    //     amount: `+$${amount}`,
+    //     action: "Deposit",
+    //     code: code
+
+    let amount = parseFloat(document.getElementById('deposit-amount').value);
+    if (isNaN(amount) || amount <= 0) {
+      alert("Please enter a valid deposit amount.");
+      return;
+    }
+    let currentBalance = parseFloat(localStorage.getItem('walletBalance'));
+    let newBalance = currentBalance + amount;
+    localStorage.setItem('walletBalance', newBalance);
+    animateBalanceChange(newBalance);
+     
 
       saveTransactions(transactions);
       alert("Deposit recorded!");
       window.location.reload();
-    }
+    
   });
+
 }
+
+window.onload = () => {
+  loadWalletBalance();
+};

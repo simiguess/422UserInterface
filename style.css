@@ -49,7 +49,7 @@ body {
 .blob-left-top {
   width: 250px;
   height: 250px;
-  background: #b08c31;
+  background: #433513;
   border-radius: 0 100% 0 0;
   opacity: 0.6;
 }
@@ -65,8 +65,8 @@ body {
 /* BLOB SVG */
 .blob-svg-top-right {
   position: absolute;
-  top: -30px;
-  right: 0px;
+  top: 0px;
+  right: -20px;
   width: 500px;
   height: 450px;
   z-index: 0;

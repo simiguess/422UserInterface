@@ -115,8 +115,12 @@ function loadGiftContacts() {
           <td>${contact.name}</td>
           <td>${contact.phone}</td>
           <td>
-            <button class="btn btn-dark send-btn" onclick="openSendModal('${contact.name}')">Send Money</button>
-            <button class="btn btn-secondary request-btn" onclick="openRequestModal('${contact.name}')">Request Money</button>
+            <button class="action-btn send-btn" onclick="openSendModal('CONTACT NAME HERE')">
+                  <i class="fa-solid fa-paper-plane"></i> Send
+                </button>
+                <button class="action-btn request-btn" onclick="openRequestModal('CONTACT NAME HERE')">
+                  <i class="fa-solid fa-hand-holding-usd"></i> Request
+                </button>
           </td>
         `;
         giftContactBody.appendChild(row);

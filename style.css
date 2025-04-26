@@ -375,6 +375,48 @@ footer {
 }
 
 
+/* Base style for action buttons */
+.action-btn {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* SEND button */
+.send-btn {
+  background: linear-gradient(135deg, #fcd660, #ffbb1b);
+  color: #333;
+}
+
+.send-btn:hover {
+  background: linear-gradient(135deg, #ffcb3c, #ffbb1b);
+  transform: translateY(-2px);
+}
+
+/* REQUEST button */
+.request-btn {
+  background: linear-gradient(135deg, #ffa500, #ff7f00);
+  color: #fff;
+}
+
+.request-btn:hover {
+  background: linear-gradient(135deg, #ff7f00, #ff5500);
+  transform: translateY(-2px);
+}
+
+.action-btn:active {
+  transform: scale(0.95);
+}
+
+
 /* LOGOUT BUTTON */
 .logout-button {
   margin-left: 10px;

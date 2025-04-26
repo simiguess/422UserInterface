@@ -1,206 +1,220 @@
-function loginBtn() {
-    window.location.href = 'homepage.html';
-}
-function createAct() {
-    window.location.href = 'create_account.html';
-}
-function register() {
-  const pass1 = document.getElementById("pass1").value;
-  const pass2 = document.getElementById("pass2").value;
-  const email = document.getElementById("emailinputreg").value;
-  let help = document.getElementById("passhelp");
-  if(pass1 == pass2 && (pass1 != "" || pass2 != "")){
-    window.location.href = 'homepage.html';
-  }
-  else if(email == ""){
-    help.style.color = "red";
-    help.textContent = "Email Cannot Be Empty";
-  }
-  else if(pass1 == '' && pass2 == ''){
-    help.style.color = "red";
-    help.textContent = "Password Cannot Be Empty";
-  }
-  else{
-    help.style.color = "red";
-    help.textContent = "Passwords Do Not Match";
-  }
-  
-}
-function logoutBtn() {
-    window.location.href = 'index.html';
-}
-
+// ===== Navigation Functions =====
 function homeBtn() {
-    window.location.href = 'homepage.html';
+  window.location.href = "homepage.html";
 }
 
 function sendGiftBtn() {
-    window.location.href = 'sendgift.html';
+  window.location.href = "sendgift.html";
 }
+
+function reqGiftBtn() {
+  window.location.href = "sendgift.html";
+}
+
 function transactionsBtn() {
-    window.location.href = 'transactionhistory.html';
+  window.location.href = "transactionhistory.html";
 }
 
-let balance = 1000; // Initial balance
+function logoutBtn() {
+  window.location.href = "index.html";
+}
 
-// Show the withdraw input and submit button when "Withdraw" is clicked
-document.getElementById("withdraw-button").addEventListener("click", function () {
-  const withdrawContainer = document.getElementById("withdraw-container");
-  withdrawContainer.style.display = "block"; // Show the input and submit button
-});
+// ====== Local Storage Utilities =====
+function getContacts() {
+  return JSON.parse(localStorage.getItem('contacts')) || [];
+}
 
-// Handle the withdrawal when the submit button is clicked
-document.getElementById("submit-withdraw").addEventListener("click", function () {
-  const withdrawInput = document.getElementById("withdraw-amount");
-  const withdrawAmount = parseFloat(withdrawInput.value);
+function saveContacts(contacts) {
+  localStorage.setItem('contacts', JSON.stringify(contacts));
+}
 
-  if (isNaN(withdrawAmount) || withdrawAmount <= 0) {
-    alert("Please enter a valid amount.");
-    return;
-  }
+function getTransactions() {
+  return JSON.parse(localStorage.getItem('transactions')) || [];
+}
 
-  if (withdrawAmount > balance) {
-    alert("Insufficient balance.");
-    return;
-  }
+function saveTransactions(transactions) {
+  localStorage.setItem('transactions', JSON.stringify(transactions));
+}
 
-  balance -= withdrawAmount; // Deduct the amount
-  document.getElementById("balance").textContent = balance.toFixed(2); // Update balance display
-  withdrawInput.value = ""; // Clear the input field
-
-  // Hide the withdraw container after submission
-  document.getElementById("withdraw-container").style.display = "none";
-});
-
-// Show the deposit input and submit button when "Deposit" is clicked
-document.getElementById("deposit-button").addEventListener("click", function () {
-  const depositContainer = document.getElementById("deposit-container");
-  depositContainer.style.display = "block"; // Show the input and submit button
-});
-
-// Handle the deposit when the submit button is clicked
-document.getElementById("submit-deposit").addEventListener("click", function () {
-  const depositInput = document.getElementById("deposit-amount");
-  const depositAmount = parseFloat(depositInput.value);
-
-  if (isNaN(depositAmount) || depositAmount <= 0) {
-    alert("Please enter a valid amount.");
-    return;
-  }
-
-  balance += depositAmount; // Add the amount
-  document.getElementById("balance").textContent = balance.toFixed(2); // Update balance display
-  depositInput.value = ""; // Clear the input field
-
-  // Hide the deposit container after submission
-  document.getElementById("deposit-container").style.display = "none";
-});
-
-
-
-//contacts
-
-let contacts = []; // Array to store contacts
-
-document.getElementById("add-contact-button").addEventListener("click", function () {
-    const contactNameInput = document.getElementById("contact-name");
-    const contactName = contactNameInput.value.trim();
-  
-    if (contactName === "") {
-      alert("Please enter a valid contact name.");
-      return;
+// ====== Contact Management (Homepage) =====
+const addContactButton = document.getElementById('add-contact-button');
+if (addContactButton) {
+  addContactButton.addEventListener('click', () => {
+    const nameInput = document.getElementById('contact-name');
+    const name = nameInput.value.trim();
+    if (name !== "") {
+      const contacts = getContacts();
+      contacts.push(name);
+      saveContacts(contacts);
+      nameInput.value = '';
+      displayContact(name);
     }
-  
-    const contactList = document.getElementById("contact-list");
-    const giftContactList= document.getElementById("gift-contact-list");
-  
-    // Create the outer div for the contact
-    const newContact = document.createElement("div");
-    newContact.classList.add("indiv-contact");
-  
-    // Create the user icon
-    const userIcon = document.createElement("i");
-    userIcon.classList.add("fa-solid", "fa-circle-user");
-  
-    // Create the contact description div 
-    const contactBody = document.createElement("div");
-    contactBody.classList.add("contact-body");
-  
-    // Create the delete button
-    const deleteButton = document.createElement("button");
-    deleteButton.textContent = "Delete";
-    deleteButton.classList.add("delete-button");
-    deleteButton.style.backgroundColor = "red";
-    deleteButton.style.color = "white";
-    deleteButton.style.border = "none";
-    deleteButton.style.padding = "5px 10px";
-    deleteButton.style.cursor = "pointer";
-    deleteButton.style.marginLeft = "10px";
-    deleteButton.addEventListener("click", function () {
-      contactList.removeChild(newContact);
+  });
+}
+
+  // Load contacts when page loads
+  const giftContactBody = document.getElementById('gift-contact-body');
+
+if (giftContactBody) {
+  window.addEventListener('DOMContentLoaded', () => {
+    const contacts = getContacts(); // pull from localStorage
+
+    contacts.forEach(name => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${name}</td>
+        <td>
+          <button class="btn btn-dark send-btn" onclick="openSendModal('${name}')">Send Money</button>
+          <button class="btn btn-secondary request-btn" onclick="openRequestModal('${name}')">Request Money</button>
+        </td>
+      `;
+      giftContactBody.appendChild(row);
     });
-    deleteButton.style.borderRadius = "5px";
+  });
+}
 
-    // Create the name paragraph from user input
-    const nameParagraph = document.createElement("p");
-    nameParagraph.style.fontWeight = "bold";
-    nameParagraph.textContent = contactName;
   
-    // Create the description paragraph
-    const descriptionParagraph = document.createElement("p");
-    descriptionParagraph.style.color = "gray";
-    descriptionParagraph.textContent = "Hello, I am a contact, beer me.";
-  
-    // Add the name and description to the contact body
-    contactBody.appendChild(nameParagraph);
-    contactBody.appendChild(descriptionParagraph);
-  
-    newContact.appendChild(deleteButton);
 
-    // Add the user icon and contact body to the outer div
-    newContact.appendChild(userIcon);
-    newContact.appendChild(contactBody);
-  
-    contactList.appendChild(newContact);
-    giftContactList.appendChild(newContact.cloneNode(true)); // Clone the contact for the gift list
-    // Add the contact to the contacts array
-    contacts.push(contactName);
-  
-    // Clear the input field
-    contactNameInput.value = "";
 
+function displayContact(name) {
+  const contactList = document.getElementById('contacts');
+  if (contactList) {
+    const li = document.createElement('li');
+    li.className = "indiv-contact";
+    li.innerHTML = `
+      <div class="contact-body">${name}</div>
+    `;
+    contactList.appendChild(li);
+  }
+}
+
+
+// ====== Gift Modal Logic =====
+let selectedRecipient = "";
+let actionType = ""; // "Send" or "Request"
+
+
+function openSendModal(name) {
+  selectedRecipient = name;
+  actionType = "Send";
+  document.getElementById('gift-recipient-name').textContent = name;
+  document.querySelector("#gift-modal h2").textContent = `Send Money to ${name}`;
+  document.getElementById('gift-modal').style.display = 'block';
+}
+
+function openRequestModal(name) {
+  selectedRecipient = name;
+  actionType = "Request";
+  document.getElementById('gift-recipient-name').textContent = name;
+  document.querySelector("#gift-modal h2").textContent = `Request Money from ${name}`;
+  document.getElementById('gift-modal').style.display = 'block';
+}
+
+
+
+function closeModal() {
+  document.getElementById('gift-modal').style.display = 'none';
+}
+
+function confirmGift() {
+  const giftType = document.getElementById('gift-type').value.trim();
+  const giftAmount = document.getElementById('gift-amount').value.trim();
+  
+  if (giftType === "" || giftAmount === "") {
+    alert("Please fill out both fields!");
+    return;
+  }
+
+  const transactions = getTransactions();
+  const date = new Date().toISOString().split('T')[0];
+  const code = Math.random().toString(36).substring(2,8).toUpperCase();
+
+  const actionDescription = `${actionType} (${giftType}) with ${selectedRecipient}`;
+
+  transactions.push({
+    date: date,
+    amount: `$${giftAmount}`,
+    action: actionDescription,
+    code: code
   });
 
-//function to select contact to send gift
-function sendGift() {
-    // Display the modal
-    const modal = document.getElementById("gift-modal");
-    modal.style.display = "block";
-  }
-  
-  function closeModal() {
-    // Hide the modal
-    const modal = document.getElementById("gift-modal");
-    modal.style.display = "none";
-  }
-  
-  function confirmGift() {
-    // Get the gift type and amount
-    const giftType = document.getElementById("gift-type").value.trim();
-    const giftAmount = document.getElementById("gift-amount").value.trim();
-  
-    if (!giftType || !giftAmount || giftAmount <= 0) {
-      alert("Please enter a valid gift type and amount.");
-      return;
+  saveTransactions(transactions);
+
+  closeModal();
+  alert(`${actionType} recorded with ${selectedRecipient} 🎉`);
+  document.getElementById('gift-type').value = '';
+  document.getElementById('gift-amount').value = '';
+}
+
+
+// ====== Transaction History Load =====
+const transactionBody = document.getElementById('transaction-body');
+if (transactionBody) {
+  window.addEventListener('DOMContentLoaded', () => {
+    const transactions = getTransactions();
+    transactions.forEach(t => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${t.date}</td>
+        <td>${t.amount}</td>
+        <td>${t.action}</td>
+        <td>${t.code}</td>
+      `;
+      transactionBody.appendChild(row);
+    });
+  });
+}
+
+// ====== Wallet Deposit / Withdraw =====
+const withdrawButton = document.getElementById('withdraw-button');
+const depositButton = document.getElementById('deposit-button');
+
+if (withdrawButton && depositButton) {
+  withdrawButton.addEventListener('click', () => {
+    document.getElementById('withdraw-container').style.display = 'block';
+  });
+
+  depositButton.addEventListener('click', () => {
+    document.getElementById('deposit-container').style.display = 'block';
+  });
+
+  document.getElementById('submit-withdraw').addEventListener('click', () => {
+    const amount = document.getElementById('withdraw-amount').value.trim();
+    if (amount !== "") {
+      const transactions = getTransactions();
+      const date = new Date().toISOString().split('T')[0];
+      const code = Math.random().toString(36).substring(2,8).toUpperCase();
+
+      transactions.push({
+        date: date,
+        amount: `-$${amount}`,
+        action: "Withdraw",
+        code: code
+      });
+
+      saveTransactions(transactions);
+      alert("Withdrawal recorded!");
+      window.location.reload();
     }
-  
-    // Confirmation message
-    alert(`Gift of ${giftAmount} (${giftType}) has been sent!`);
-  
-    // Close the modal
-    closeModal();
-  
-    // Optionally, clear the input fields
-    document.getElementById("gift-type").value = "";
-    document.getElementById("gift-amount").value = "";
-  }
+  });
+
+  document.getElementById('submit-deposit').addEventListener('click', () => {
+    const amount = document.getElementById('deposit-amount').value.trim();
+    if (amount !== "") {
+      const transactions = getTransactions();
+      const date = new Date().toISOString().split('T')[0];
+      const code = Math.random().toString(36).substring(2,8).toUpperCase();
+
+      transactions.push({
+        date: date,
+        amount: `+$${amount}`,
+        action: "Deposit",
+        code: code
+      });
+
+      saveTransactions(transactions);
+      alert("Deposit recorded!");
+      window.location.reload();
+    }
+  });
+}

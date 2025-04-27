@@ -158,11 +158,26 @@ function displayContact(name) {
 let selectedRecipient = "";
 let actionType = ""; // "Send" or "Request" 
 
+// function openSendModal(name) {
+//   selectedRecipient = name;
+//   actionType = "Send";
+//   document.getElementById('gift-recipient-name').textContent = name;
+//   document.querySelector("#gift-modal h2").textContent = `Send Money to ${name}`;
+//   document.getElementById('gift-modal').style.display = 'block';
+// }
+
+// function openRequestModal(name) {
+//   selectedRecipient = name;
+//   actionType = "Request";
+//   document.getElementById('gift-recipient-name').textContent = name;
+//   document.querySelector("#gift-modal h2").textContent = `Request Money from ${name}`;
+//   document.getElementById('gift-modal').style.display = 'block';
+// }
 function openSendModal(name) {
   selectedRecipient = name;
   actionType = "Send";
   document.getElementById('gift-recipient-name').textContent = name;
-  document.querySelector("#gift-modal h2").textContent = `Send Money to ${name}`;
+  document.getElementById('gift-modal-title').textContent = `Send Money to`;
   document.getElementById('gift-modal').style.display = 'block';
 }
 
@@ -170,14 +185,12 @@ function openRequestModal(name) {
   selectedRecipient = name;
   actionType = "Request";
   document.getElementById('gift-recipient-name').textContent = name;
-  document.querySelector("#gift-modal h2").textContent = `Request Money from ${name}`;
+  document.getElementById('gift-modal-title').textContent = `Request Money from`;
   document.getElementById('gift-modal').style.display = 'block';
 }
-
 function closeModal() {
   document.getElementById('gift-modal').style.display = 'none';
 }
-
 function confirmGift() {
   const giftType = document.getElementById('gift-type').value.trim();
   const giftAmount = parseFloat(document.getElementById('gift-amount').value.trim());
@@ -188,25 +201,90 @@ function confirmGift() {
   }
 
   let currentBalance = parseFloat(localStorage.getItem('walletBalance'));
-  if (giftAmount > currentBalance) {
-    alert("Not enough funds to send this gift!");
+  let newBalance;
+
+  if (actionType === "Send") {
+    if (giftAmount > currentBalance) {
+      alert("Not enough funds to send this gift!");
+      return;
+    }
+    newBalance = currentBalance - giftAmount;
+    saveTransaction("Gift Sent", -giftAmount, selectedRecipient);
+  } else if (actionType === "Request") {
+    newBalance = currentBalance + giftAmount;
+    saveTransaction("Request Sent", giftAmount, selectedRecipient);
+  } else {
+    alert("Unknown action type!");
     return;
   }
 
-  // Update wallet
-  let newBalance = currentBalance - giftAmount;
   localStorage.setItem('walletBalance', newBalance);
   animateBalanceChange(newBalance);
 
-  // Save transaction
-  saveTransaction("Gift Sent", -giftAmount, selectedRecipient);
-
-  // Close modal
   closeModal();
   alert(`${actionType} recorded with ${selectedRecipient} 🎉`);
   document.getElementById('gift-type').value = '';
   document.getElementById('gift-amount').value = '';
 }
+// function confirmGift() {
+//   const giftType = document.getElementById('gift-type').value.trim();
+//   const giftAmount = parseFloat(document.getElementById('gift-amount').value.trim());
+
+//   if (giftType === "" || isNaN(giftAmount) || giftAmount <= 0) {
+//     alert("Please fill out both fields with valid values!");
+//     return;
+//   }
+
+//   let currentBalance = parseFloat(localStorage.getItem('walletBalance'));
+//   if (giftAmount > currentBalance) {
+//     alert("Not enough funds to send this gift!");
+//     return;
+//   }
+
+//   // Update wallet
+//   let newBalance = currentBalance - giftAmount;
+//   localStorage.setItem('walletBalance', newBalance);
+//   animateBalanceChange(newBalance);
+
+//   // Save transaction
+//   saveTransaction("Gift Sent", -giftAmount, selectedRecipient);
+
+//   // Close modal
+//   closeModal();
+//   alert(`${actionType} recorded with ${selectedRecipient} 🎉`);
+//   document.getElementById('gift-type').value = '';
+//   document.getElementById('gift-amount').value = '';
+// }
+
+// function confirmGift2() {
+//   const giftType = document.getElementById('gift-type').value.trim();
+//   const giftAmount = parseFloat(document.getElementById('gift-amount').value.trim());
+
+//   if (giftType === "" || isNaN(giftAmount) || giftAmount <= 0) {
+//     alert("Please fill out both fields with valid values!");
+//     return;
+//   }
+
+//   let currentBalance = parseFloat(localStorage.getItem('walletBalance'));
+//   // if (giftAmount > currentBalance) {
+//   //   alert("Not enough funds to send this gift!");
+//   //   return;
+//   // }
+
+//   // Update wallet
+//   let newBalance = currentBalance + giftAmount;
+//   localStorage.setItem('walletBalance', newBalance);
+//   animateBalanceChange(newBalance);
+
+//   // Save transaction
+//   saveTransaction("Request Sent", giftAmount, selectedRecipient);
+
+//   // Close modal
+//   closeModal();
+//   alert(`${actionType} recorded with ${selectedRecipient} 🎉`);
+//   document.getElementById('gift-type').value = '';
+//   document.getElementById('gift-amount').value = '';
+// }
 
 // ===== Transaction History Loader =====
 const transactionBody = document.getElementById('transaction-body');
@@ -234,6 +312,9 @@ function loadTransactions() {
     transactionBody.appendChild(row);
   });
 }
+
+
+
 
 // ===== Wallet Deposit / Withdraw =====
 const withdrawButton = document.getElementById('withdraw-button');

@@ -5,6 +5,34 @@ function reqGiftBtn() { window.location.href = "sendgift.html"; }
 function transactionsBtn() { window.location.href = "transactionhistory.html"; }
 function logoutBtn() { window.location.href = "index.html"; }
 
+
+function createAct() {
+  window.location.href = 'create_account.html';
+}
+
+function register(){
+  const pass1 = document.getElementById("regpassword").value;
+  const pass2 = document.getElementById("confirmpassword").value;
+  const email = document.getElementById("username").value;
+  let help = document.getElementById("passhelp");
+  if(pass1 == pass2 && (pass1 != "" || pass2 != "")){
+    window.location.href = 'homepage.html';
+  }
+  else if(email == ""){
+    help.style.color = "red";
+    help.textContent = "Username Cannot Be Empty";
+  }
+  else if(pass1 == '' && pass2 == ''){
+    help.style.color = "red";
+    help.textContent = "Password Cannot Be Empty";
+  }
+  else{
+    help.style.color = "red";
+    help.textContent = "Passwords Do Not Match";
+  }
+
+}
+
 // ===== Local Storage Utilities =====
 function getContacts() {
   return JSON.parse(localStorage.getItem('contacts')) || [];

@@ -6,6 +6,14 @@
   font-family: 'Poppins', sans-serif;
 }
 
+.m-5{
+  margin-top: 5px;
+}
+
+.mb-5{
+  margin-bottom: 5px;
+}
+
 body {
   height: 100vh;
   overflow: hidden;
@@ -177,9 +185,26 @@ body {
   transition: transform 0.2s ease;
 }
 
+.create-btn {
+  width: 100%;
+  background-color: #ebebeb;
+  color: #1e1e1e;
+  padding: 12px 0;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  transition: transform 0.2s ease;
+}
+
 .login-btn:hover {
   transform: translateY(-2px);
   background-color: #000;
+}
+
+.create-btn:hover {
+  transform: translateY(-2px);
+  background-color: #dfdede;
 }
 
 .forgot-link {

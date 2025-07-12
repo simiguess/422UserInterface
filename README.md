@@ -8,7 +8,7 @@
 
 ## 🚀 Live Demo
 
-🎉 Check out the deployed version here:  
+🎉 Check out the deployed version here:  Formatted for website!
 👉 [simiguess.github.io/422UserInterface](https://simiguess.github.io/422UserInterface)
 
 ---
